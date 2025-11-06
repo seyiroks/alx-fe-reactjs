@@ -1,15 +1,6 @@
-import React, { useContext } from 'react';
-import UserContext from './UserContext';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
-function UserDetails() {
-  const userData = useContext(UserContext);
-
-  return (
-    <div>
-      <p>Name: {userData.name}</p>
-      <p>Email: {userData.email}</p>
-    </div>
-  );
-}
-
-export default UserDetails;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
