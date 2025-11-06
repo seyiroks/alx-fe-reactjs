@@ -1,6 +1,4 @@
-import React from 'react';
-
-function UserProfile(props) {
+const UserProfile = (props) => {
   return (
     <div style={{ border: '1px solid gray', padding: '15px', margin: '10px', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
       <h2 style={{ color: 'blue', marginBottom: '5px' }}>{props.name}</h2>
@@ -8,6 +6,6 @@ function UserProfile(props) {
       <p>Bio: <span style={{ fontStyle: 'italic' }}>{props.bio}</span></p>
     </div>
   );
-}
+};
 
 export default UserProfile;
