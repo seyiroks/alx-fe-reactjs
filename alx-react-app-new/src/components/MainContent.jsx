@@ -4,7 +4,7 @@ function MainContent() {
   return (
     <main style={{ padding: '20px', backgroundColor: '#e6f2ff', textAlign: 'center' }}>
       <h2 style={{ color: 'darkblue' }}>Welcome to My Favorite Cities App</h2>
-      <p>Explore some amazing destinations and learn fun facts about them!</p>
+      <p>love to visit New York, Paris, and Tokyo</p>
     </main>
   );
 }
