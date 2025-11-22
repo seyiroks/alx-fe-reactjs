@@ -1,0 +1,24 @@
+import React from 'react';
+import Header from './components/Header';
+import MainContent from './components/MainContent';
+import UserProfile from './components/UserProfile';
+import Footer from './components/Footer';
+
+function App() {
+  return (
+    <div>
+      <Header />
+      <MainContent />
+
+      <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <UserProfile name="Andy" age={27} bio="A creative mind who loves photography, music, and exploring new cultures." />
+        <UserProfile name="Ama" age={24} bio="A travel enthusiast passionate about nature and food adventures." />
+        <UserProfile name="Kwame" age={29} bio="A software developer with a love for cityscapes and good coffee." />
+      </div>
+
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
