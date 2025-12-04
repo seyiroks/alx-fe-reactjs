@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import recipeData from '../data.json';
 
 function HomePage() {
@@ -43,9 +44,12 @@ function HomePage() {
               <p className="text-gray-600 text-sm mb-4">
                 {recipe.summary}
               </p>
-              <button className="text-blue-500 hover:text-blue-700 font-medium text-sm">
+              <Link 
+                to={`/recipe/${recipe.id}`}
+                className="text-blue-500 hover:text-blue-700 font-medium text-sm inline-block"
+              >
                 View Recipe →
-              </button>
+              </Link>
             </div>
           </div>
         ))}

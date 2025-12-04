@@ -3,36 +3,148 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "400g spaghetti",
+      "200g pancetta or bacon",
+      "4 large eggs",
+      "100g Parmesan cheese, grated",
+      "Black pepper to taste",
+      "Salt for pasta water"
+    ],
+    "instructions": [
+      "Bring a large pot of salted water to boil and cook spaghetti according to package directions.",
+      "While pasta cooks, fry pancetta in a large skillet until crispy.",
+      "In a bowl, whisk together eggs, grated Parmesan, and black pepper.",
+      "Drain pasta, reserving 1 cup of pasta water.",
+      "Add hot pasta to the skillet with pancetta, remove from heat.",
+      "Quickly stir in egg mixture, adding pasta water as needed to create a creamy sauce.",
+      "Serve immediately with extra Parmesan and black pepper."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "500g chicken breast, cubed",
+      "1 cup yogurt",
+      "2 tbsp tikka masala spice",
+      "400g canned tomatoes",
+      "200ml heavy cream",
+      "1 onion, diced",
+      "3 cloves garlic, minced",
+      "1 tbsp ginger, grated",
+      "2 tbsp butter",
+      "Fresh cilantro for garnish"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and half the tikka masala spice for at least 1 hour.",
+      "Grill or pan-fry chicken until cooked through, set aside.",
+      "In a large pan, melt butter and sauté onion until soft.",
+      "Add garlic and ginger, cook for 1 minute.",
+      "Add remaining spice and canned tomatoes, simmer for 10 minutes.",
+      "Stir in cream and cooked chicken, simmer for 5 more minutes.",
+      "Garnish with fresh cilantro and serve with rice or naan."
+    ]
   },
   {
     "id": 3,
     "title": "Caesar Salad",
     "summary": "A green salad of romaine lettuce and croutons dressed with lemon juice, olive oil, eggs, and Parmesan cheese.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "1 large head romaine lettuce",
+      "1 cup croutons",
+      "1/2 cup Parmesan cheese, shaved",
+      "1/4 cup Caesar dressing",
+      "2 anchovy fillets (optional)",
+      "Lemon wedges for serving"
+    ],
+    "instructions": [
+      "Wash and dry romaine lettuce thoroughly.",
+      "Tear lettuce into bite-sized pieces and place in a large bowl.",
+      "Add croutons and Parmesan cheese.",
+      "Drizzle with Caesar dressing and toss gently to coat.",
+      "Top with additional Parmesan and anchovies if desired.",
+      "Serve immediately with lemon wedges."
+    ]
   },
   {
     "id": 4,
     "title": "Chocolate Lava Cake",
     "summary": "A rich chocolate dessert with a warm, gooey center that flows out when you cut into it.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "100g dark chocolate",
+      "100g butter",
+      "2 eggs",
+      "2 egg yolks",
+      "50g sugar",
+      "30g flour",
+      "Butter for greasing ramekins",
+      "Powdered sugar for dusting"
+    ],
+    "instructions": [
+      "Preheat oven to 200°C (400°F).",
+      "Melt chocolate and butter together in a double boiler.",
+      "In a separate bowl, whisk eggs, egg yolks, and sugar until thick.",
+      "Fold melted chocolate into egg mixture.",
+      "Gently fold in flour until just combined.",
+      "Grease ramekins and divide batter among them.",
+      "Bake for 12 minutes until edges are firm but center is soft.",
+      "Let cool for 1 minute, then invert onto plates. Dust with powdered sugar."
+    ]
   },
   {
     "id": 5,
     "title": "Margherita Pizza",
     "summary": "A simple yet delicious pizza topped with tomatoes, mozzarella cheese, fresh basil, salt, and olive oil.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "1 pizza dough ball",
+      "1/2 cup tomato sauce",
+      "200g fresh mozzarella, sliced",
+      "Fresh basil leaves",
+      "2 tbsp olive oil",
+      "Salt to taste",
+      "Flour for dusting"
+    ],
+    "instructions": [
+      "Preheat oven to maximum temperature (250°C/480°F or higher).",
+      "Roll out pizza dough on a floured surface to desired thickness.",
+      "Spread tomato sauce evenly over the dough, leaving a border for the crust.",
+      "Arrange mozzarella slices on top of the sauce.",
+      "Drizzle with olive oil and sprinkle with salt.",
+      "Bake for 10-12 minutes until crust is golden and cheese is bubbly.",
+      "Remove from oven and top with fresh basil leaves.",
+      "Slice and serve immediately."
+    ]
   },
   {
     "id": 6,
     "title": "Beef Tacos",
     "summary": "Crispy or soft tortillas filled with seasoned ground beef, lettuce, cheese, and salsa.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "500g ground beef",
+      "1 packet taco seasoning",
+      "8 taco shells or tortillas",
+      "1 cup lettuce, shredded",
+      "1 cup cheddar cheese, shredded",
+      "1 tomato, diced",
+      "1/2 cup sour cream",
+      "Salsa for serving"
+    ],
+    "instructions": [
+      "Brown ground beef in a large skillet over medium-high heat.",
+      "Drain excess fat and add taco seasoning with water as per packet instructions.",
+      "Simmer for 5 minutes until sauce thickens.",
+      "Warm taco shells according to package directions.",
+      "Fill each shell with seasoned beef.",
+      "Top with lettuce, cheese, tomatoes, and sour cream.",
+      "Serve with salsa on the side."
+    ]
   }
 ]
