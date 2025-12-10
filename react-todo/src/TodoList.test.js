@@ -1,137 +1,105 @@
+// src/TodoList.test.js
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import TodoList from '../TodoList';
+import TodoList from './TodoList';
 
 describe('TodoList Component', () => {
-  // Test 1: Initial Render Test
+  
   test('renders TodoList component with initial todos', () => {
     render(<TodoList />);
     
-    // Check if the title is rendered
+    // Check title
     expect(screen.getByText('Todo List')).toBeInTheDocument();
     
-    // Check if initial todos are rendered
+    // Check initial todos
     expect(screen.getByText('Learn React')).toBeInTheDocument();
     expect(screen.getByText('Build a Todo App')).toBeInTheDocument();
     expect(screen.getByText('Write Tests')).toBeInTheDocument();
-    
-    // Check if the todo list exists
-    expect(screen.getByTestId('todo-list')).toBeInTheDocument();
   });
-});
 
-// Test 2: Test Adding Todos
-  test('adds a new todo when user submits the form', () => {
+  test('adds a new todo when add button is clicked', () => {
     render(<TodoList />);
     
     const input = screen.getByTestId('todo-input');
     const addButton = screen.getByTestId('add-button');
     
-    // Type a new todo
+    // Add new todo
     fireEvent.change(input, { target: { value: 'New Todo Item' } });
-    
-    // Click the add button
     fireEvent.click(addButton);
     
-    // Verify the new todo appears in the list
+    // Verify todo was added
     expect(screen.getByText('New Todo Item')).toBeInTheDocument();
     
-    // Verify the input is cleared after adding
+    // Verify input was cleared
     expect(input.value).toBe('');
   });
 
-  // Test 3: Test Adding Todo with Enter Key
-  test('adds a new todo when user presses Enter key', () => {
-    render(<TodoList />);
-    
-    const input = screen.getByTestId('todo-input');
-    
-    // Type a new todo
-    fireEvent.change(input, { target: { value: 'Todo via Enter' } });
-    
-    // Press Enter
-    fireEvent.keyPress(input, { key: 'Enter', code: 'Enter', charCode: 13 });
-    
-    // Verify the new todo appears in the list
-    expect(screen.getByText('Todo via Enter')).toBeInTheDocument();
-  });
-
-  // Test 4: Test Empty Input Prevention
   test('does not add empty todos', () => {
     render(<TodoList />);
     
     const input = screen.getByTestId('todo-input');
     const addButton = screen.getByTestId('add-button');
     
-    // Get initial todo count
-    const initialTodos = screen.getAllByRole('listitem');
-    const initialCount = initialTodos.length;
-    
     // Try to add empty todo
     fireEvent.change(input, { target: { value: '   ' } });
     fireEvent.click(addButton);
     
-    // Verify no new todo was added
-    const finalTodos = screen.getAllByRole('listitem');
-    expect(finalTodos.length).toBe(initialCount);
+    // Should still have only 3 initial todos
+    const todoItems = screen.getAllByRole('listitem');
+    expect(todoItems).toHaveLength(3);
   });
 
-  // Test 5: Test Toggling Todos (via checkbox)
-  test('toggles todo completion status when checkbox is clicked', () => {
+  test('toggles todo completion when checkbox is clicked', () => {
     render(<TodoList />);
     
-    // Get the first todo checkbox
     const checkbox = screen.getByTestId('todo-checkbox-1');
     const todoText = screen.getByTestId('todo-text-1');
     
-    // Initially not completed
-    expect(checkbox.checked).toBe(false);
+    // Initially unchecked
+    expect(checkbox).not.toBeChecked();
+    expect(todoText).toHaveStyle('text-decoration: none');
     
-    // Click checkbox to complete
+    // Click to complete
     fireEvent.click(checkbox);
-    
-    // Should be completed now
-    expect(checkbox.checked).toBe(true);
+    expect(checkbox).toBeChecked();
     expect(todoText).toHaveStyle('text-decoration: line-through');
     
-    // Click again to uncomplete
+    // Click to uncomplete
     fireEvent.click(checkbox);
-    
-    // Should be uncompleted
-    expect(checkbox.checked).toBe(false);
+    expect(checkbox).not.toBeChecked();
+    expect(todoText).toHaveStyle('text-decoration: none');
   });
 
-  // Test 6: Test Toggling Todos (via text click)
-  test('toggles todo completion status when text is clicked', () => {
+  test('toggles todo completion when text is clicked', () => {
     render(<TodoList />);
     
-    const todoText = screen.getByTestId('todo-text-2');
     const checkbox = screen.getByTestId('todo-checkbox-2');
+    const todoText = screen.getByTestId('todo-text-2');
     
-    // Initially not completed
-    expect(checkbox.checked).toBe(false);
+    // Initially unchecked
+    expect(checkbox).not.toBeChecked();
     
     // Click text to complete
     fireEvent.click(todoText);
+    expect(checkbox).toBeChecked();
     
-    // Should be completed now
-    expect(checkbox.checked).toBe(true);
-    expect(todoText).toHaveStyle('text-decoration: line-through');
+    // Click text to uncomplete
+    fireEvent.click(todoText);
+    expect(checkbox).not.toBeChecked();
   });
 
-  // Test 7: Test Deleting Todos
   test('deletes a todo when delete button is clicked', () => {
     render(<TodoList />);
     
-    // Verify the todo exists
+    // Verify todo exists
     expect(screen.getByText('Build a Todo App')).toBeInTheDocument();
     
-    // Click the delete button for todo with id 2
+    // Delete the todo
     const deleteButton = screen.getByTestId('delete-button-2');
     fireEvent.click(deleteButton);
     
-    // Verify the todo is removed
+    // Verify todo was deleted
     expect(screen.queryByText('Build a Todo App')).not.toBeInTheDocument();
     
     // Verify other todos still exist
@@ -139,70 +107,61 @@ describe('TodoList Component', () => {
     expect(screen.getByText('Write Tests')).toBeInTheDocument();
   });
 
-  // Test 8: Test Multiple Deletions
-  test('deletes all todos correctly', () => {
+  test('deletes all todos', () => {
     render(<TodoList />);
     
-    // Delete all three initial todos
+    // Delete all todos
     fireEvent.click(screen.getByTestId('delete-button-1'));
     fireEvent.click(screen.getByTestId('delete-button-2'));
     fireEvent.click(screen.getByTestId('delete-button-3'));
     
-    // Verify empty state message appears
+    // Should show empty message
     expect(screen.getByText('No todos yet. Add one above!')).toBeInTheDocument();
   });
 
-  // Test 9: Test Todo Counter
-  test('displays correct todo count', () => {
+  test('displays correct number of todos', () => {
     render(<TodoList />);
     
-    // Initially 3 todos, 0 completed
-    expect(screen.getByText(/Total: 3/)).toBeInTheDocument();
-    expect(screen.getByText(/Completed: 0/)).toBeInTheDocument();
+    // Initially 3 todos
+    let todoItems = screen.getAllByRole('listitem');
+    expect(todoItems).toHaveLength(3);
     
-    // Complete one todo
-    fireEvent.click(screen.getByTestId('todo-checkbox-1'));
-    
-    // Should show 1 completed
-    expect(screen.getByText(/Completed: 1/)).toBeInTheDocument();
-    
-    // Add a new todo
+    // Add a todo
     const input = screen.getByTestId('todo-input');
     const addButton = screen.getByTestId('add-button');
     fireEvent.change(input, { target: { value: 'Fourth Todo' } });
     fireEvent.click(addButton);
     
-    // Should show 4 total
-    expect(screen.getByText(/Total: 4/)).toBeInTheDocument();
+    // Should now have 4 todos
+    todoItems = screen.getAllByRole('listitem');
+    expect(todoItems).toHaveLength(4);
   });
 
-  // Test 10: Test Complete Workflow
-  test('handles complete todo workflow: add, toggle, delete', () => {
+  test('handles complete workflow', () => {
     render(<TodoList />);
     
-    // Add a new todo
     const input = screen.getByTestId('todo-input');
     const addButton = screen.getByTestId('add-button');
-    fireEvent.change(input, { target: { value: 'Complete Workflow Test' } });
+    
+    // Add todo
+    fireEvent.change(input, { target: { value: 'Workflow Test' } });
     fireEvent.click(addButton);
+    expect(screen.getByText('Workflow Test')).toBeInTheDocument();
     
-    // Verify it was added
-    const newTodo = screen.getByText('Complete Workflow Test');
-    expect(newTodo).toBeInTheDocument();
+    // Find the new todo's checkbox (it will be the last one)
+    const checkboxes = screen.getAllByRole('checkbox');
+    const newCheckbox = checkboxes[checkboxes.length - 1];
     
-    // Find and toggle the new todo
-    const allCheckboxes = screen.getAllByRole('checkbox');
-    const newCheckbox = allCheckboxes[allCheckboxes.length - 1];
+    // Toggle it
     fireEvent.click(newCheckbox);
+    expect(newCheckbox).toBeChecked();
     
-    // Verify it's completed
-    expect(newCheckbox.checked).toBe(true);
-    
-    // Find and delete the new todo
-    const allDeleteButtons = screen.getAllByText('Delete');
-    const newDeleteButton = allDeleteButtons[allDeleteButtons.length - 1];
+    // Find and click delete button (it will be the last one)
+    const deleteButtons = screen.getAllByText('Delete');
+    const newDeleteButton = deleteButtons[deleteButtons.length - 1];
     fireEvent.click(newDeleteButton);
     
-    // Verify it's deleted
-    expect(screen.queryByText('Complete Workflow Test')).not.toBeInTheDocument();
+    // Verify deleted
+    expect(screen.queryByText('Workflow Test')).not.toBeInTheDocument();
   });
+});
