@@ -1,16 +1,12 @@
 import React from 'react';
-import TodoList from './TodoList';
-import './App.css'; // Assuming you keep the default CSS
+import TodoList from './components/TodoList';
+import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>My React Todo Application</h1>
-      </header>
-      <main>
-        <TodoList />
-      </main>
+      <h1>Todo List</h1>
+      <TodoList />
     </div>
   );
 }
