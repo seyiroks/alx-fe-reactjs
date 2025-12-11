@@ -1,42 +1,35 @@
-// src/TodoList.js
 import React, { useState } from 'react';
 
-// TodoList Component
-function TodoList() {
-  // State initialization with initial todos
-  const [todos, setTodos] = useState([
-    { id: 1, text: 'Learn React', completed: false },
-    { id: 2, text: 'Build a Todo App', completed: false },
-    { id: 3, text: 'Write Tests', completed: false }
-  ]);
+// Initial state with a few demonstration todos
+const initialTodos = [
+  { id: 1, text: 'Learn React Testing Library', completed: true },
+  { id: 2, text: 'Implement AddTodoForm', completed: false },
+  { id: 3, text: 'Write Jest tests for all features', completed: false },
+];
 
-  const [inputValue, setInputValue] = useState('');
+let nextId = initialTodos.length + 1;
 
-  // Handle input change
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
+// --- TodoList Component ---
+const TodoList = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  const [newTodoText, setNewTodoText] = useState('');
 
-  // Add todo function
-  const addTodo = () => {
-    if (inputValue.trim() !== '') {
-      const newTodo = {
-        id: Date.now(),
-        text: inputValue,
-        completed: false
-      };
-      setTodos([...todos, newTodo]);
-      setInputValue('');
-    }
-  };
-
-  // Handle form submission
-  const handleSubmit = (e) => {
+  // 1. Add Todo Logic
+  const addTodo = (e) => {
     e.preventDefault();
-    addTodo();
+    if (!newTodoText.trim()) return; // Prevent adding empty todos
+
+    const newTodo = {
+      id: nextId++,
+      text: newTodoText.trim(),
+      completed: false,
+    };
+    
+    setTodos([...todos, newTodo]);
+    setNewTodoText(''); // Clear input after adding
   };
 
-  // Toggle todo completion
+  // 2. Toggle Todo Logic (by clicking the list item)
   const toggleTodo = (id) => {
     setTodos(
       todos.map((todo) =>
@@ -45,64 +38,61 @@ function TodoList() {
     );
   };
 
-  // Delete todo
+  // 3. Delete Todo Logic
   const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    // Stop the click event from propagating to the list item's toggle function
+    // This is important because the button is inside the clickable list item.
+    return (e) => {
+        e.stopPropagation(); 
+        setTodos(todos.filter((todo) => todo.id !== id));
+    }
   };
 
   return (
     <div>
-      <h1>Todo List</h1>
-      
-      {/* AddTodoForm Section */}
-      <div>
+      <h2>Todo List</h2>
+
+      {/* AddTodoForm Implementation */}
+      <form onSubmit={addTodo}>
         <input
           type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Add a new todo"
-          data-testid="todo-input"
+          value={newTodoText}
+          onChange={(e) => setNewTodoText(e.target.value)}
+          placeholder="Add new todo"
+          // We use data-testid for easy selection in tests
+          data-testid="todo-input" 
         />
-        <button onClick={addTodo} data-testid="add-button">
-          Add
-        </button>
-      </div>
+        <button type="submit" data-testid="add-button">Add</button>
+      </form>
 
-      {/* TodoList Section */}
+      {/* Todo List Display */}
       <ul data-testid="todo-list">
         {todos.map((todo) => (
-          <li key={todo.id} data-testid={`todo-item-${todo.id}`}>
-            <input
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => toggleTodo(todo.id)}
-              data-testid={`todo-checkbox-${todo.id}`}
-            />
-            <span
-              onClick={() => toggleTodo(todo.id)}
-              style={{
-                textDecoration: todo.completed ? 'line-through' : 'none',
-                cursor: 'pointer'
-              }}
-              data-testid={`todo-text-${todo.id}`}
-            >
-              {todo.text}
-            </span>
-            <button
-              onClick={() => deleteTodo(todo.id)}
+          <li
+            key={todo.id}
+            // Use onClick to implement the toggle functionality
+            onClick={() => toggleTodo(todo.id)}
+            style={{
+              cursor: 'pointer',
+              textDecoration: todo.completed ? 'line-through' : 'none',
+              color: todo.completed ? 'gray' : 'black',
+            }}
+            // Use data-testid for testing specific list items
+            data-testid={`todo-item-${todo.id}`}
+          >
+            {todo.text}
+            <button 
+              onClick={deleteTodo(todo.id)} 
               data-testid={`delete-button-${todo.id}`}
+              style={{ marginLeft: '10px' }}
             >
               Delete
             </button>
           </li>
         ))}
       </ul>
-
-      {todos.length === 0 && (
-        <p data-testid="empty-message">No todos yet. Add one above!</p>
-      )}
     </div>
   );
-}
+};
 
 export default TodoList;
