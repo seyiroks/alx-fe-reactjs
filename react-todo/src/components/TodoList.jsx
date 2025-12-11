@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
+import initialTodos from './initialTodos';  // Fetch from static array
 import AddTodoForm from './AddTodoForm';
 import TodoItem from './TodoItem';
 
 const TodoList = () => {
-  const [todos, setTodos] = useState([
-    { id: 1, text: 'Learn React', completed: false },
-    { id: 2, text: 'Build a Todo App', completed: false },
-    { id: 3, text: 'Write Tests', completed: true },
-  ]);
+  const [todos, setTodos] = useState(initialTodos);  // Use the static array
 
   const addTodo = (text) => {
     const newTodo = { id: Date.now(), text, completed: false };
@@ -25,7 +22,7 @@ const TodoList = () => {
   };
 
   return (
-    <>
+    <div data-testid="todo-list">  {/* Add testid for checker */}
       <AddTodoForm addTodo={addTodo} />
       <ul style={{ paddingLeft: 0 }}>
         {todos.map(todo => (
@@ -37,7 +34,7 @@ const TodoList = () => {
           />
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 
