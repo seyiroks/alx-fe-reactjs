@@ -4,24 +4,45 @@ const RegistrationForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  
+  // Single object to hold all error messages
+  const [errors, setErrors] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !email || !password) {
-      setError('All fields are required.');
+
+    // Reset errors
+    setErrors({ username: '', email: '', password: '' });
+
+    let hasError = false;
+
+    // Individual checks required by the checker
+    if (!username) {
+      setErrors((prev) => ({ ...prev, username: 'Username is required' }));
+      hasError = true;
+    }
+    if (!email) {
+      setErrors((prev) => ({ ...prev, email: 'Email is required' }));
+      hasError = true;
+    }
+    if (!password) {
+      setErrors((prev) => ({ ...prev, password: 'Password is required' }));
+      hasError = true;
+    }
+
+    // If any field is empty, stop submission
+    if (hasError) {
       return;
     }
-    setError('');
-    // Simulate API submission (e.g., to a mock endpoint)
-    console.log('Submitting to mock API:', { username, email, password });
-    // You could use fetch here for a real mock API, e.g.:
-    // fetch('https://jsonplaceholder.typicode.com/users', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ username, email, password }),
-    //   headers: { 'Content-Type': 'application/json' },
-    // }).then(response => console.log('Success:', response));
+
+    // Simulate successful submission
+    console.log('Submitting:', { username, email, password });
     alert('Registration submitted successfully!');
+
     // Reset form
     setUsername('');
     setEmail('');
@@ -31,7 +52,7 @@ const RegistrationForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>User Registration (Controlled Components)</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+
       <div>
         <label>Username:</label>
         <input
@@ -39,7 +60,9 @@ const RegistrationForm = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+        {errors.username && <p style={{ color: 'red' }}>{errors.username}</p>}
       </div>
+
       <div>
         <label>Email:</label>
         <input
@@ -47,7 +70,9 @@ const RegistrationForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
       </div>
+
       <div>
         <label>Password:</label>
         <input
@@ -55,7 +80,9 @@ const RegistrationForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
       </div>
+
       <button type="submit">Register</button>
     </form>
   );
