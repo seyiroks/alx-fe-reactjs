@@ -1,40 +1,47 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import RegistrationForm from './components/RegistrationForm'
+import FormikForm from './components/formikForm'
 import './App.css'
-import RegistrationForm from "./components/RegistrationForm";
-import FormikForm from "./components/formikForm";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeTab, setActiveTab] = useState('controlled')
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-container">
+      <div className="content-wrapper fade-in">
+        <header className="app-header">
+          <h1 className="app-title">User Registration</h1>
+          <p className="app-subtitle">
+            Exploring form handling with controlled components and Formik
+          </p>
+        </header>
+
+        <div className="tab-navigation">
+          <button
+            className={`tab-button ${activeTab === 'controlled' ? 'active' : ''}`}
+            onClick={() => setActiveTab('controlled')}
+          >
+            <span className="tab-number">01</span>
+            <span className="tab-label">Controlled Components</span>
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'formik' ? 'active' : ''}`}
+            onClick={() => setActiveTab('formik')}
+          >
+            <span className="tab-number">02</span>
+            <span className="tab-label">Formik Implementation</span>
+          </button>
+        </div>
+
+        <div className="form-container">
+          {activeTab === 'controlled' ? (
+            <RegistrationForm key="controlled" />
+          ) : (
+            <FormikForm key="formik" />
+          )}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <div>
-        <RegistrationForm />
-        <FormikForm />
-      </div>
-    </>
+    </div>
   )
 }
 
