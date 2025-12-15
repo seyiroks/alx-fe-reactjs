@@ -1,13 +1,12 @@
+// src/__tests__/TodoList.test.js
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App'; // Since our component is in App.jsx
-
-// Optional: You can rename the component if needed, but this works
+import TodoList from '../components/TodoList';  // ← Changed from '../App'
 
 describe('TodoList Component', () => {
   test('renders initial todos', () => {
-    render(<App />);
+    render(<TodoList />);
     
     expect(screen.getByText('Learn React')).toBeInTheDocument();
     expect(screen.getByText('Build a Todo App')).toBeInTheDocument();
@@ -16,7 +15,7 @@ describe('TodoList Component', () => {
 
   test('adds a new todo', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    render(<TodoList />);
 
     const input = screen.getByTestId('todo-input');
     const addButton = screen.getByText('Add Todo');
@@ -28,37 +27,30 @@ describe('TodoList Component', () => {
   });
 
   test('toggles a todo completion status', async () => {
-  const user = userEvent.setup();
-  render(<App />);
+    const user = userEvent.setup();
+    render(<TodoList />);
 
-  // Find the first todo (id: 1 → "Learn React")
-  const firstTodo = screen.getByTestId('todo-1');
+    const firstTodo = screen.getByTestId('todo-1');
 
-  // Initially not completed
-  expect(firstTodo).toHaveAttribute('data-completed', 'false');
+    expect(firstTodo).toHaveAttribute('data-completed', 'false');
 
-  await user.click(firstTodo);
+    await user.click(firstTodo);
 
-  // Now completed
-  expect(firstTodo).toHaveAttribute('data-completed', 'true');
+    expect(firstTodo).toHaveAttribute('data-completed', 'true');
 
-  await user.click(firstTodo);
+    await user.click(firstTodo);
 
-  // Toggle back
-  expect(firstTodo).toHaveAttribute('data-completed', 'false');
-});
+    expect(firstTodo).toHaveAttribute('data-completed', 'false');
+  });
 
   test('deletes a todo', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    render(<TodoList />);
 
-    // Ensure "Write Tests" exists
     expect(screen.getByText('Write Tests')).toBeInTheDocument();
 
-    // Find the Delete button next to "Write Tests"
     const deleteButtons = screen.getAllByText('Delete');
-    // Click the third one (corresponding to "Write Tests")
-    await user.click(deleteButtons[2]);
+    await user.click(deleteButtons[2]);  // Third todo
 
     expect(screen.queryByText('Write Tests')).not.toBeInTheDocument();
   });
