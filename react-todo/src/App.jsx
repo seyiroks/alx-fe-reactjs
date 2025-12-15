@@ -1,5 +1,6 @@
 // src/App.jsx
-import TodoList from './TodoList';
+import TodoList from "./TodoList";
+import "./App.css";
 
 function App() {
   return (
